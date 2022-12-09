@@ -193,3 +193,17 @@ Penyelesaian:
   ```
   iptables -A INPUT -p icmp -m connlimit --connlimit-above 2 --connlimit-mask 0 -j DROP
   ```
+
+## Soal 4
+Akses menuju Web Server hanya diperbolehkan disaat jam kerja yaitu Senin sampai Jumat pada pukul 07.00 - 16.00.
+
+Penyelesaian:
+- Garden & SSS
+  ```
+  iptables -A INPUT -d 192.179.0.80/29 -m time --timestart 07:00 --timestop 16:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+  iptables -A INPUT -d 192.179.0.80/29 -j REJECT
+  ```
+
+  Hasil
+  ![Testing Soal 4](https://cdn.discordapp.com/attachments/818146232689098802/1050788702131081331/image.png)
+  ![Testing Soal 4](https://cdn.discordapp.com/attachments/818146232689098802/1050789293792182272/image.png)
