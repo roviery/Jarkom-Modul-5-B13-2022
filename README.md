@@ -51,11 +51,13 @@ route add -net 192.179.0.80 netmask 255.255.255.248 gw 192.179.0.66
   apt-get install isc-dhcp-server -y
   ```
   isc-dhcp-server
+
   ```
   INTERFACES="eth0"
   ```
 
   dhcpd.conf
+
   ```
   # Forger
   subnet 192.179.0.128 netmask 255.255.255.128{
@@ -102,24 +104,42 @@ route add -net 192.179.0.80 netmask 255.255.255.248 gw 192.179.0.66
           option routers 192.179.0.1;
   }
   ```
+  Start DHCP Server
+  
+  ```
+  service isc-dhcp-server stop
+  service isc-dhcp-server start
+  service isc-dhcp-server status
+  ```
+
+
 > DHCP Relay
 - **Westalis, Strix, Ostania**
+
   ```
   echo "nameserver 192.168.122.1" > /etc/resolv.conf
   apt-get update
   apt-get install isc-dhcp-relay -y
   ```
   isc-dhcp-relay
+
   ```
   SERVERS="192.179.0.2"
   INTERFACES="eth0 eth1 eth2 eth3"
   OPTIONS=""
+  ```
+  Start DHCP Relay
+
+  ```
+  service isc-dhcp-relay stop
+  service isc-dhcp-relay start
   ```
 
 > IP Dinamis (DHCP)
 - **Forger, Desmond, Briar, Blackbell**  
 
   Network Configuration
+
   ```
   auto eth0
   iface eth0 inet dhcp
@@ -130,6 +150,32 @@ Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk meng
 
 Penyelesaian:
 - Strix
+
   ```
   iptables -t nat -A POSTROUTING -s 192.179.0.0/21 -o eth0 -j SNAT --to-source 192.168.122.155
   ```
+
+## Soal 2
+Kalian diminta untuk melakukan drop semua TCP dan UDP dari luar Topologi kalian pada server yang merupakan DHCP Server demi menjaga keamanan.
+
+Penyelesaian:
+- WISE
+  ```
+  iptables -A INPUT -p tcp --dport 80 -j DROP
+  iptables -A INPUT -p udp --dport 80 -j DROP
+  ```
+
+- Testing
+  - WISE
+    ```
+    apt-get install netcat -y
+    nc -l -p 80
+    ```
+  - STRIX
+    ```
+    apt-get install netcat -y
+    nc 192.179.0.2 80
+    ```
+
+  Hasil  
+  ![Testing Soal 2](https://cdn.discordapp.com/attachments/818146232689098802/1050783882036912168/image.png)
