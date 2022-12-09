@@ -207,3 +207,18 @@ Penyelesaian:
   Hasil
   ![Testing Soal 4](https://cdn.discordapp.com/attachments/818146232689098802/1050788702131081331/image.png)
   ![Testing Soal 4](https://cdn.discordapp.com/attachments/818146232689098802/1050789293792182272/image.png)
+
+## Soal 5
+Karena kita memiliki 2 Web Server, Loid ingin Ostania diatur sehingga setiap request dari client yang mengakses Garden dengan port 80 akan didistribusikan secara bergantian pada SSS dan Garden secara berurutan dan request dari client yang mengakses SSS dengan port 443 akan didistribusikan secara bergantian pada Garden dan SSS secara berurutan.
+
+Penyelesaian:
+- Ostania
+  ```
+  iptables -A PREROUTING -t nat -p tcp -d 192.179.0.82 --dport 80 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 192.179.0.82
+  iptables -A PREROUTING -t nat -p tcp -d 192.179.0.82 --dport 80 -j DNAT --to-destination 192.179.0.83
+  iptables -A PREROUTING -t nat -p tcp -d 192.179.0.83 --dport 443 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 192.179.0.82
+  iptables -A PREROUTING -t nat -p tcp -d 192.179.0.83 --dport 443 -j DNAT --to-destination 192.179.0.83
+
+  iptables -t nat -A POSTROUTING -p tcp -d 192.179.0.82 -j SNAT --to-source 192.179.0.0
+  iptables -t nat -A POSTROUTING -p tcp -d 192.179.0.83 -j SNAT --to-source 192.179.0.0
+  ```
