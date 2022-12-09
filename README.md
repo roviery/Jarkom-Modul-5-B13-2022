@@ -124,3 +124,12 @@ route add -net 192.179.0.80 netmask 255.255.255.248 gw 192.179.0.66
   auto eth0
   iface eth0 inet dhcp
   ```
+
+## Soal 1
+Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Strix menggunakan iptables, tetapi Loid tidak ingin menggunakan MASQUERADE.
+
+Penyelesaian:
+- Strix
+  ```
+  iptables -t nat -A POSTROUTING -s 192.179.0.0/21 -o eth0 -j SNAT --to-source 192.168.122.155
+  ```
