@@ -177,5 +177,19 @@ Penyelesaian:
     nc 192.179.0.2 80
     ```
 
-  Hasil  
+  Hasil 
+
   ![Testing Soal 2](https://cdn.discordapp.com/attachments/818146232689098802/1050783882036912168/image.png)
+
+## Soal 3
+Loid meminta kalian untuk membatasi DHCP dan DNS Server hanya boleh menerima maksimal 2 koneksi ICMP secara bersamaan menggunakan iptables, selebihnya didrop.
+
+Penyelesaian:
+- WISE
+  ```
+  iptables -A INPUT -p icmp -m connlimit --connlimit-above 2 --connlimit-mask 0 -j DROP
+  ```
+- Eden
+  ```
+  iptables -A INPUT -p icmp -m connlimit --connlimit-above 2 --connlimit-mask 0 -j DROP
+  ```
