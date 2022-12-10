@@ -205,8 +205,7 @@ Penyelesaian:
   ```
 
   Hasil
-  ![Testing Soal 4](https://cdn.discordapp.com/attachments/818146232689098802/1050788702131081331/image.png)
-  ![Testing Soal 4](https://cdn.discordapp.com/attachments/818146232689098802/1050789293792182272/image.png)
+  ![Testing Soal 4](https://cdn.discordapp.com/attachments/818146232689098802/1051107030410215555/image.png)
 
 ## Soal 5
 Karena kita memiliki 2 Web Server, Loid ingin Ostania diatur sehingga setiap request dari client yang mengakses Garden dengan port 80 akan didistribusikan secara bergantian pada SSS dan Garden secara berurutan dan request dari client yang mengakses SSS dengan port 443 akan didistribusikan secara bergantian pada Garden dan SSS secara berurutan.
