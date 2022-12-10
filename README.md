@@ -23,7 +23,7 @@ Keterangan:
 
 ## B
 - Pembagian subnet menggunakan teknik VLSM
-![subnet vlsm](https://cdn.discordapp.com/attachments/818146232689098802/1050770244588810300/image.png)
+![subnet vlsm](https://cdn.discordapp.com/attachments/818146232689098802/1051099771902890034/image.png)
 
 - Pembagian IP  
 ![Pembagian IP](https://cdn.discordapp.com/attachments/818146232689098802/1050772302113034320/image.png)
